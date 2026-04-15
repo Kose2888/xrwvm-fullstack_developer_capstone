@@ -1,16 +1,41 @@
 img{
   width: 60%;
+  height: 200px;
   align-self: center;
 }
 
-.card{
+/* .card{
   border: rgb(103, 102, 105) 3px solid;
   display: flex;  
   flex-direction: column;
-  margin-left:5%;
-  margin-right:5%;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin: 0;
+} */
+
+div.card {
+    border: 3px solid #614080; /* Your purple color */
+    border-radius: 15px;       /* Rounder corners */
+    box-shadow: 5px 10px 18px #888888; 
+    transition: 0.3s;          /* Smooth hover effect */
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 5px 15px 25px #666;
+}
+
+.card .person-icon {
+    max-width: 200px;
+    height: auto;      /* Keeps the image proportions perfect */
+    display: block;    /* Required for margin: auto to work */
+    margin: 20px auto; /* Adds space on top/bottom and centers it */
+}
+
+.card .custom-card-img {
+    width: 100%;
+    max-height: 500px;     /* Forces the height you want */
+    object-fit: cover; /* Prevents the 'squashed' look by cropping instead of stretching */
+    object-position: center;
 }
 
 .row{

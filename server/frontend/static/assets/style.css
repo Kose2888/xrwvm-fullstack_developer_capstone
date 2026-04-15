@@ -25,10 +25,11 @@ div.card {
 }
 
 .card .person-icon {
-    max-width: 200px;
+    max-width: 300px;
     height: auto;      /* Keeps the image proportions perfect */
     display: block;    /* Required for margin: auto to work */
     margin: 20px auto; /* Adds space on top/bottom and centers it */
+    margin-bottom: 0;
 }
 
 .card .custom-card-img {

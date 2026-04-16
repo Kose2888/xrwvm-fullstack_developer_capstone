@@ -19,9 +19,13 @@
       let curr_user = sessionStorage.getItem("username");
 
       if (curr_user && curr_user !== "") {
+        /*         document.getElementById("loginlogout").innerHTML =
+                  '<div className="input_panel><text className="username" style="font-size: larger;">' + curr_user + '</text>' + '<a className="nav_item" href="/djangoapp/logout" onClick={logout}>Logout</a></div>'; */
+
+        document.getElementById("username").innerHTML =
+          '<a class="nav-link" style="font-size: larger;" href="/profile">' + curr_user + '</a>';
         document.getElementById("logout").innerHTML =
-          '<span class="homepage_links">' + curr_user + '</span>' +
-          '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
+          '<a class="nav-link" style="font-size: larger;" onclick="logout()" href="/">Logout</a>'
       } else {
         document.getElementById("login").innerHTML =
           '<a class="nav-link" style="font-size: larger;" href="/login">Login</a>';
@@ -57,9 +61,14 @@
           </li>
           <li class="nav-item" id="register">
           </li>
+          <li class="nav-item me-lg-3 me-0" id="username">
+          </li>
           <li class="nav-item" id="logout">
           </li>
         </ul>
+        <!--  <span class="navbar-text me-3">
+          <div class="loginlink" id="loginlogout">
+          </div> -->
       </div>
     </div>
   </nav>

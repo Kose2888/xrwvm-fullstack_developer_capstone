@@ -12,7 +12,37 @@
   <script>
 
     const logout = async (e) => {
-      //Include the code for logout here.
+      // Prevent the button/link from refreshing the page on its own
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      let logout_url = window.location.origin + "/djangoapp/logout";
+
+      try {
+        const res = await fetch(logout_url, {
+          method: "GET", // Keep as GET for now since your view expects it
+        });
+
+        if (res.ok) {
+          const json = await res.json();
+          if (json) {
+            // Clear session storage and reload page
+            let username = sessionStorage.getItem('username');
+            sessionStorage.removeItem('username');
+            window.location.href = window.location.origin;
+            window.location.reload();
+            // Notify user of logout
+            alert("Logging out " + username + "...")
+          }
+          else {
+            alert("The user could not be logged out.")
+          }
+        }
+      } catch (err) {
+        console.error("Logout error:", err);
+      }
     };
 
     let checkSession = () => {
@@ -25,7 +55,7 @@
         document.getElementById("username").innerHTML =
           '<a class="nav-link" style="font-size: larger;" href="/profile">' + curr_user + '</a>';
         document.getElementById("logout").innerHTML =
-          '<a class="nav-link" style="font-size: larger;" onclick="logout()" href="/">Logout</a>'
+          '<a class="nav-link" style="font-size: larger;" onclick="logout(event)" href="/">Logout</a>'
       } else {
         document.getElementById("login").innerHTML =
           '<a class="nav-link" style="font-size: larger;" href="/login">Login</a>';

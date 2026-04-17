@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Register.css";
+/* import "./Register.css"; */
+import "../assets/bootstrap.min.css";
 import Header from "../Header/Header"
 import user_icon from "../assets/person.png"
 import email_icon from "../assets/email.png"
@@ -48,14 +49,52 @@ const Register = () => {
         }
         else if (json.error === "Already Registered") {
             alert("The user with same username is already registered");
-            window.location.href = window.location.origin;
         }
     };
 
     return (
         <div>
             <Header />
-            <div className="register_container" style={{ width: "50%" }}>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-md-7 col-lg-5">
+                        <form className="border p-4 rounded shadow-sm" onSubmit={register}>
+                            <div className="form-group">
+                                <label htmlFor="inputUsername">Username</label>
+                                <input type="text" name="username" className="form-control" id="inputUsername" placeholder="Username"
+                                    autoComplete="on" required onChange={(e) => setUserName(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputFirstName">First Name</label>
+                                <input type="text" name="first_name" className="form-control" id="inputFirstName" placeholder="First Name"
+                                    autoComplete="on" onChange={(e) => setFirstName(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputLastName">Last Name</label>
+                                <input type="text" name="last_name" className="form-control" id="inputLastName" placeholder="Last Name"
+                                    autoComplete="on" onChange={(e) => setlastName(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputEmail">Email address</label>
+                                <input type="email" name="email" className="form-control" id="inputEmail" aria-describedby="emailHelp"
+                                    placeholder="Enter email" autoComplete="on" required onChange={(e) => setEmail(e.target.value)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputPassword">Password</label>
+                                <input type="password" name="psw" className="form-control" id="inputPassword" placeholder="Password"
+                                    autoComplete="on" required onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                            <button type="submit" className="btn btn-primary mt-4">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            {/*             <div className="register_container" style={{ width: "50%" }}>
                 <div className="header" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                     <span className="text" style={{ flexGrow: "1" }}>SignUp</span>
                     <div style={{ display: "flex", flexDirection: "row", justifySelf: "end", alignSelf: "start" }}>
@@ -97,7 +136,7 @@ const Register = () => {
                         <input className="submit" type="submit" value="Register" />
                     </div>
                 </form>
-            </div>
+            </div> */}
         </div>
     )
 }

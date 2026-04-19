@@ -14,6 +14,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setlastName] = useState("");
+    const [userNameError, setUserNameError] = useState("");
 
     // Redirect to home
     const gohome = () => {
@@ -48,7 +49,7 @@ const Register = () => {
             window.location.href = window.location.origin;
         }
         else if (json.error === "Already Registered") {
-            alert("The user with same username is already registered");
+            setUserNameError("This username already exists");
         }
     };
 
@@ -59,10 +60,36 @@ const Register = () => {
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-7 col-lg-5">
                         <form className="border p-4 rounded shadow-sm" onSubmit={register}>
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <h2 className="m-0">Register</h2>
+                                <button
+                                    type="button"
+                                    className="btn"
+                                    style={{
+                                        color: "red",
+                                        fontSize: "2rem",
+                                        lineHeight: "1",
+                                        padding: "0",
+                                        border: "none",
+                                        background: "transparent"
+                                    }}
+                                    aria-label="Close"
+                                    onClick={() => gohome()}
+                                >
+                                    &times;
+                                </button>
+                            </div>
                             <div className="form-group">
                                 <label htmlFor="inputUsername">Username</label>
-                                <input type="text" name="username" className="form-control" id="inputUsername" placeholder="Username"
+                                <input type="text" name="username"
+                                    className={`form-control ${userNameError ? 'is-invalid' : ''}`}
+                                    id="inputUsername" placeholder="Username"
                                     autoComplete="on" required onChange={(e) => setUserName(e.target.value)} />
+                                {userNameError && (
+                                    <div className="invalid-feedback">
+                                        {userNameError}
+                                    </div>
+                                )}
                             </div>
                             <div className="form-group">
                                 <label htmlFor="inputFirstName">First Name</label>
@@ -88,56 +115,8 @@ const Register = () => {
                         </form>
                     </div>
                 </div>
-            </div>
-
-
-
-
-
-            {/*             <div className="register_container" style={{ width: "50%" }}>
-                <div className="header" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                    <span className="text" style={{ flexGrow: "1" }}>SignUp</span>
-                    <div style={{ display: "flex", flexDirection: "row", justifySelf: "end", alignSelf: "start" }}>
-                        <a href="/" onClick={() => { gohome() }} style={{ justifyContent: "space-between", alignItems: "flex-end" }}>
-                            <img style={{ width: "1cm" }} src={close_icon} alt="X" />
-                        </a>
-                    </div>
-                    <hr />
-                </div>
-
-                <form onSubmit={register}>
-                    <div className="inputs">
-                        <div className="input">
-                            <img src={user_icon} className="img_icon" alt='Username' />
-                            <input type="text" name="username" placeholder="Username" className="input_field" onChange={(e) => setUserName(e.target.value)} />
-                        </div>
-                        <div>
-                            <img src={user_icon} className="img_icon" alt='First Name' />
-                            <input type="text" name="first_name" placeholder="First Name" className="input_field" onChange={(e) => setFirstName(e.target.value)} />
-                        </div>
-
-                        <div>
-                            <img src={user_icon} className="img_icon" alt='Last Name' />
-                            <input type="text" name="last_name" placeholder="Last Name" className="input_field" onChange={(e) => setlastName(e.target.value)} />
-                        </div>
-
-                        <div>
-                            <img src={email_icon} className="img_icon" alt='Email' />
-                            <input type="email" name="email" placeholder="email" className="input_field" onChange={(e) => setEmail(e.target.value)} />
-                        </div>
-
-                        <div className="input">
-                            <img src={password_icon} className="img_icon" alt='password' />
-                            <input name="psw" type="password" placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-
-                    </div>
-                    <div className="submit_panel">
-                        <input className="submit" type="submit" value="Register" />
-                    </div>
-                </form>
-            </div> */}
-        </div>
+            </div >
+        </div >
     )
 }
 

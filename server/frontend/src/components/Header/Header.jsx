@@ -1,44 +1,76 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "../assets/style2.css";
 import "../assets/bootstrap.min.css";
 
 const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const logout = async (e) => {
-    e.preventDefault();
-    let logout_url = window.location.origin + "/djangoapp/logout";
-    const res = await fetch(logout_url, {
-      method: "GET",
-    });
-
-    const json = await res.json();
-    if (json) {
-      let username = sessionStorage.getItem('username');
-      sessionStorage.removeItem('username');
-      window.location.href = window.location.origin;
-      window.location.reload();
-      alert("Logging out " + username + "...")
+    // Prevent the button/link from refreshing the page on its own
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
-    else {
-      alert("The user could not be logged out.")
+
+    let logout_url = window.location.origin + "/djangoapp/logout";
+
+    try {
+      const res = await fetch(logout_url, {
+        method: "GET", // Keep as GET for now since your view expects it
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        if (json) {
+          // Clear session storage and reload page
+          let username = sessionStorage.getItem('username');
+          sessionStorage.removeItem('username');
+          window.location.href = window.location.origin;
+          window.location.reload();
+          // Notify user of logout
+          alert("Logging out " + username + "...")
+        }
+        else {
+          alert("The user could not be logged out.")
+        }
+      }
+    } catch (err) {
+      console.error("Logout error:", err);
     }
   };
 
-  //The default home page items are the login details panel
-  let home_page_items = <div></div>
+  const curr_user = sessionStorage.getItem('username');
 
-  //Gets the username in the current session
-  let curr_user = sessionStorage.getItem('username')
+  useEffect(() => {
+    if (curr_user !== null && curr_user !== "") {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
-  //If the user is logged in, show the username and logout option on home page
-  if (curr_user !== null && curr_user !== "") {
-    home_page_items = <div className="input_panel">
-      <text className='username'>{sessionStorage.getItem("username")}</text>
-      <a className="nav_item" href="/djangoapp/logout" onClick={logout}>Logout</a>
-    </div>
-  }
+  const loggedIn = (
+    <ul className="navbar-nav">
+      <li className="nav-item me-lg-3 me-0" id="username">
+        <a className="nav-link" style={{ fontSize: "larger" }} href="/profile">{curr_user}</a>
+      </li>
+      <li className="nav-item" id="logout">
+        <a className="nav-link" style={{ fontSize: "larger" }} onClick={(e) => logout(e)} href="/">Logout</a>
+      </li>
+    </ul>
+  )
+
+  const loggedOut = (
+    <ul className="navbar-nav">
+      <li className="nav-item" id="login">
+        <a className="nav-link" style={{ fontSize: "larger" }} href="/login">Login</a>
+      </li>
+      <li className="nav-item" id="register">
+        <a className="nav-link" style={{ fontSize: "larger" }} href="/register">Register</a>
+      </li>
+    </ul>
+  )
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -61,11 +93,7 @@ const Header = () => {
                 <a className="nav-link" style={{ fontSize: "larger" }} href="/contact">Contact Us</a>
               </li>
             </ul>
-            <span className="navbar-text">
-              <div className="loginlink" id="loginlogout">
-                {home_page_items}
-              </div>
-            </span>
+            {isLoggedIn ? loggedIn : loggedOut}
           </div>
         </div>
       </nav>

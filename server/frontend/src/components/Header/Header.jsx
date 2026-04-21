@@ -72,8 +72,8 @@ const Header = () => {
   )
 
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div style={{ marginBottom: "100px" }}>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-1">
         <div className="container-fluid">
           <h2 style={{ paddingRight: "5%" }}>Dealerships</h2>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"

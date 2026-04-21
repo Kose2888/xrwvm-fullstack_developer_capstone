@@ -4,6 +4,11 @@ table{
     border: grey solid 1px;
     width:100%
   }
+
+.table-container {
+  overflow-x: scroll;
+  width: 100%;
+}
   
   td{
     padding:10px;

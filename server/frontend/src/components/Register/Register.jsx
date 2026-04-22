@@ -2,10 +2,6 @@ import React, { useState } from "react";
 /* import "./Register.css"; */
 import "../assets/bootstrap.min.css";
 import Header from "../Header/Header"
-import user_icon from "../assets/person.png"
-import email_icon from "../assets/email.png"
-import password_icon from "../assets/password.png"
-import close_icon from "../assets/close.png"
 
 const Register = () => {
     // State variables for form inputs

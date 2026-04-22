@@ -1,10 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
-from django.contrib import messages
-from datetime import datetime
 
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -53,7 +48,6 @@ def registration(request):
     last_name = data['lastName']
     email = data['email']
     username_exist = False
-    email_exist = False
 
     try:
         # Check if user already exists
@@ -67,7 +61,8 @@ def registration(request):
     if not username_exist:
         # Create user in auth_user table
         user = User.objects.create_user(
-            username=username, first_name=first_name, password=password, email=email)
+            username=username, first_name=first_name, last_name=last_name,
+            password=password, email=email)
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
@@ -88,7 +83,8 @@ def get_cars(request):
                     "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels": cars})
 
-# Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+# Update the `get_dealerships` render list of dealerships all by default,
+# particular state if state is passed
 
 
 def get_dealerships(request, state="All"):
@@ -128,12 +124,15 @@ def get_dealer_reviews(request, dealer_id):
 
 
 def add_review(request):
-    if (request.user.is_anonymous == False):
+    if (request.user.is_anonymous is False):
         data = json.loads(request.body)
         try:
             response = post_review(data)
-            return JsonResponse({"status": 200})
-        except:
+            return JsonResponse(
+                {"status": 200, "message": "Review posted successfully",
+                 "response": response})
+        except Exception as e:
+            logger.error(f"Error in posting review: {e}")
             return JsonResponse({"status": 401, "message": "Error in posting review"})
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})

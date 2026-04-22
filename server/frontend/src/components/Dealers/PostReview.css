@@ -1,0 +1,96 @@
+/* Container to center the card on the page */
+.container_postreview {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* The Review Form Card */
+.review_form_card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    max-width: 600px;
+    margin: 60px auto;
+    box-sizing: border-box; /* Ensures padding doesn't add to width */
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Input Groupings */
+.input_field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+    height: auto; 
+    min-height: min-content;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.input_field label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Form Elements Styling */
+textarea, 
+input[type="date"], 
+input[type="number"], 
+select {
+    width: 100%; 
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    display: block;
+}
+
+textarea:focus, 
+input:focus, 
+select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+    min-height: 150px; /* Makes the review box much larger */
+    resize: vertical;
+}
+
+/* Button Styling */
+.postreview {
+    width: 100%; /* Makes button full width of the form */
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.postreview:hover {
+    background-color: #0056b3;
+}
+
+.postreview:active {
+    transform: translateY(1px);
+}

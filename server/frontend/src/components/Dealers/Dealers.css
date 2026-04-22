@@ -4,6 +4,11 @@ table{
     border: grey solid 1px;
     width:100%
   }
+
+.table-container {
+  overflow-x: scroll;
+  width: 100%;
+}
   
   td{
     padding:10px;
@@ -53,6 +58,12 @@ table{
     overflow-wrap: normal;
     margin-top: 1cm;
     align-items: flex-start;
+    justify-content: center;
+  }
+
+  .review_panel:hover {
+    transform: scale(1.1);
+    border: solid lightgray;
   }
 
   .reviewer {
@@ -63,14 +74,14 @@ table{
 }
 
 .review {
-  margin-top: 1.5cm;
+  margin-top: 0px;
 }
 
 .emotion_icon {
   align-self: center;
-  position:fixed;
     width:40px;
     height:40px;
+    margin-top: 10px;
     background-color:#0C9;
     color:#FFF;
     border-radius:50px;
@@ -80,9 +91,29 @@ table{
 
 .review_icon {
   width:40px;
+  height: auto;
 }
 
 .review_icon:hover {
   transform: scale(1.1);
   border: solid lightgray;
+}
+
+.container_dealer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 1cm;
+    overflow-wrap: normal;
+    margin-top: 1cm;
+    align-items: center;
+    justify-content: center;
+}
+
+.container_postreview {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }

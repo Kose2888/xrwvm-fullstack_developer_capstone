@@ -68,14 +68,14 @@ table{
 }
 
 .review {
-  margin-top: 1.5cm;
+  margin-top: 0px;
 }
 
 .emotion_icon {
   align-self: center;
-  position:fixed;
     width:40px;
     height:40px;
+    margin-top: 10px;
     background-color:#0C9;
     color:#FFF;
     border-radius:50px;
@@ -85,6 +85,7 @@ table{
 
 .review_icon {
   width:40px;
+  height: auto;
 }
 
 .review_icon:hover {

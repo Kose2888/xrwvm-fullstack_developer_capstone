@@ -58,6 +58,12 @@ table{
     overflow-wrap: normal;
     margin-top: 1cm;
     align-items: flex-start;
+    justify-content: center;
+  }
+
+  .review_panel:hover {
+    transform: scale(1.1);
+    border: solid lightgray;
   }
 
   .reviewer {
@@ -91,4 +97,16 @@ table{
 .review_icon:hover {
   transform: scale(1.1);
   border: solid lightgray;
+}
+
+.dealership_container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 1cm;
+    overflow-wrap: normal;
+    margin-top: 1cm;
+    align-items: center;
+    justify-content: center;
+
 }

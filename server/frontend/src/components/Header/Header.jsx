@@ -1,11 +1,10 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import "../assets/style2.css";
 import "../assets/bootstrap.min.css";
 
 const Header = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const logout = async (e) => {
     // Prevent the button/link from refreshing the page on its own
@@ -43,11 +42,7 @@ const Header = () => {
 
   const curr_user = sessionStorage.getItem('username');
 
-  useEffect(() => {
-    if (curr_user !== null && curr_user !== "") {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  let isLoggedIn = sessionStorage.getItem("username") != null ? true : false;
 
   const loggedIn = (
     <ul className="navbar-nav">

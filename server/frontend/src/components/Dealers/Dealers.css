@@ -111,12 +111,9 @@ table{
 }
 
 .container_postreview {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    column-gap: 1cm;
-    overflow-wrap: normal;
-    margin-top: 0cm;
-    align-items: center;
-    justify-content: center;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }

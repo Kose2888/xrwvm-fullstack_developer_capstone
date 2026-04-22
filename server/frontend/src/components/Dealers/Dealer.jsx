@@ -70,7 +70,7 @@ const Dealer = () => {
   return (
     <div style={{ margin: "20px" }}>
       <Header />
-      <div className='dealership_container'>
+      <div className='container_dealer'>
         <h1 style={{ color: "grey" }}>{dealer.full_name}</h1>
         <h4 style={{ color: "grey" }}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
         {postReview}

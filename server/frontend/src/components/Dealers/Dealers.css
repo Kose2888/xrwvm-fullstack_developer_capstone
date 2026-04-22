@@ -99,7 +99,7 @@ table{
   border: solid lightgray;
 }
 
-.dealership_container {
+.container_dealer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -108,5 +108,15 @@ table{
     margin-top: 1cm;
     align-items: center;
     justify-content: center;
+}
 
+.container_postreview {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 1cm;
+    overflow-wrap: normal;
+    margin-top: 0cm;
+    align-items: center;
+    justify-content: center;
 }

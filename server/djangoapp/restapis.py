@@ -68,8 +68,8 @@ def searchcars_request(endpoint, **kwargs):
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
         return response.json()
-    except:
-        # If any error occurs
+    except Exception as err:
+        print(f"Unexcpected {err=}, {type(err)=}")
         print("Network exception occurred")
     finally:
         print("GET request call complete!")

@@ -117,3 +117,27 @@ table{
   flex-direction: column;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
+
+/* Matches the page's light aesthetic while utilizing the teal accent */
+.search-btn {
+  background-color: #ffffff;
+  color: #333333;
+  padding: 10px 25px;
+  border: 2px solid #2bd1d1;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-btn a {
+  text-decoration: none;
+  color: black;
+  font-size: large;
+}
+
+.search-btn:hover {
+  background-color: #2bd1d1;
+  color: #ffffff;
+}

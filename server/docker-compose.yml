@@ -13,7 +13,7 @@ services:
 
   # Node api service
   node_api:
-    image: nodeapp
+    image: nodeapp_db
     ports:
       - 3030:3030
     depends_on: 
@@ -27,5 +27,24 @@ services:
     ports:
       - 5000:5000
 
+  # Cars Inventory mongo database
+  cars_inventory_db:
+    container_name: carsInventory_container
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    restart: always
+    volumes:
+      - cars_inventory_data:/data/db
+
+  # Cars Inventory API
+  cars_api:
+    image: nodeapp_carsinventory
+    ports:
+      - 3050:3050
+    depends_on:
+      - cars_inventory_db
+
 volumes:
   mongo_data: {}
+  cars_inventory_data: {}

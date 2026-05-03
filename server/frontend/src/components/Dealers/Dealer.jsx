@@ -73,6 +73,9 @@ const Dealer = () => {
       <div className='container_dealer'>
         <h1 style={{ color: "grey" }}>{dealer.full_name}</h1>
         <h4 style={{ color: "grey" }}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
+        <div className='search-btn'>
+          <a href={`/searchcars/${id}`}>Search Cars</a>
+        </div>
         {postReview}
       </div>
       <div class="reviews_panel">

@@ -65,17 +65,7 @@ app.get('/carsbymaxmileage/:id/:mileage', async (req, res) => {
     try {
         let mileage = parseInt(req.params.mileage);
         let condition = {};
-        if (mileage === 50000) {
-            condition = { $lte: mileage };
-        } else if (mileage === 100000) {
-            condition = { $lte: mileage, $gt: 50000 };
-        } else if (mileage === 150000) {
-            condition = { $lte: mileage, $gt: 100000 };
-        } else if (mileage === 200000) {
-            condition = { $lte: mileage, $gt: 150000 };
-        } else {
-            condition = { $gt: 200000 };
-        }
+        condition = { $lte: mileage };
         const documents = await Cars.find({ dealer_id: req.params.id, mileage: condition });
         res.json(documents);
     } catch (error) {
@@ -86,21 +76,29 @@ app.get('/carsbymaxmileage/:id/:mileage', async (req, res) => {
 
 app.get('/carsbyprice/:id/:price', async (req, res) => {
     try {
-        let price = parseInt(req.params.price);
+        const dealerId = parseInt(req.params.id);
+        const price = parseInt(req.params.price);
+
+        if (Number.isNaN(dealerId) || Number.isNaN(price)) {
+            return res.status(400).json({ error: 'Invalid dealer ID or price' });
+        }
+
         let condition = {};
         if (price === 20000) {
             condition = { $lte: price };
         } else if (price === 40000) {
-            console.log("\n \n \n " + price);
             condition = { $lte: price, $gt: 20000 };
         } else if (price === 60000) {
             condition = { $lte: price, $gt: 40000 };
         } else if (price === 80000) {
             condition = { $lte: price, $gt: 60000 };
-        } else {
+        } else if (price > 80000) {
             condition = { $gt: 80000 };
+        } else {
+            condition = { $lte: price };
         }
-        const documents = await Cars.find({ dealer_id: req.params.id, price: condition });
+
+        const documents = await Cars.find({ dealer_id: dealerId, price: condition });
         res.json(documents);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching dealers by ID' });

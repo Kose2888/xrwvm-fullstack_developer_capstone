@@ -19,18 +19,35 @@ spec:
       labels:
         run: dealership
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: k3s-master
+      imagePullSecrets:
+        - name: my-registry-key
       containers:
-      - image: docker.io/kose2888/dealership:v1.0
+      - image: docker.io/kose2888/dealership:v1.1
         imagePullPolicy: Always
         name: dealership
         env:
         - name: backend_url
-          value: "http://host.docker.internal:3030"
+          value: "http://node-api:3030"
         - name: sentiment_analyzer_url
-          value: "http://host.docker.internal:5000/"
+          value: "http://sentiment-api:5000/"
+        - name: searchcars_url
+          value: "http://searchcars-api:3050"
         ports:
         - containerPort: 8000
           protocol: TCP
       restartPolicy: Always
-      imagePullSecrets:
-        - name: my-registry-key
+
+# For Cloudflare
+apiVersion: v1
+kind: Service
+metadata:
+  name: dealership-service
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+  selector:
+    run: dealership

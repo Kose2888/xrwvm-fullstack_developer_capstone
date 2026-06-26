@@ -15,7 +15,8 @@ const PostReview = () => {
   const [carmodels, setCarmodels] = useState([]);
 
   let curr_url = window.location.href;
-  let root_url = curr_url.substring(0, curr_url.indexOf("postreview"));
+  //let root_url = curr_url.substring(0, curr_url.indexOf("postreview"));
+  let root_url = window.location.origin + "/";
   let params = useParams();
   let id = params.id;
   let dealer_url = root_url + `djangoapp/dealer/${id}`;
@@ -55,11 +56,16 @@ const PostReview = () => {
         "Content-Type": "application/json",
       },
       body: jsoninput,
+      credentials: "same-origin", // Tells broswer to send session cookies
     });
 
     const json = await res.json();
     if (json.status === 200) {
       window.location.href = window.location.origin + "/dealer/" + id;
+    } else {
+      // This will now catch the 403 or 401 errors
+      alert(`Server rejected review: ${json.message}`);
+      console.error("Full server response:", json);
     }
 
   }

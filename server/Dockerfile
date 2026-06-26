@@ -1,25 +1,32 @@
-    FROM python:3.12.0-slim-bookworm
+# Frontend build
+FROM node:20-alpine AS frontend-builder
 
-    ENV PYTHONBUFFERED 1
-    ENV PYTHONWRITEBYTECODE 1
+WORKDIR /app/frontend
 
-    ENV APP=/app
+COPY frontend/package*.json ./
+RUN npm install
 
-    # Change the workdir.
-    WORKDIR $APP
+COPY frontend/ .
+RUN npm run build
 
-    # Install the requirements
-    COPY requirements.txt $APP
+# Backend
+FROM python:3.12-slim
 
-    RUN pip3 install -r requirements.txt
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-    # Copy the rest of the files
-    COPY . $APP
+WORKDIR /app
 
-    EXPOSE 8000
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-    RUN chmod +x /app/entrypoint.sh
+COPY . .
 
-    ENTRYPOINT ["/bin/bash","/app/entrypoint.sh"]
+COPY --from=frontend-builder /app/frontend/build /app/frontend/build
 
-    CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangoproj.wsgi"]
+RUN python manage.py collectstatic --noinput --clear
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "--threads", "2", "--timeout", "300", "djangoproj.wsgi:application"]

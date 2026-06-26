@@ -5,13 +5,14 @@ const cors = require('cors');
 
 const app = express();
 const port = 3050;
+const mongoURL = process.env.MONGO_URL || "mongodb://cars-inventory-db:27017/";
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 const carsData = JSON.parse(fs.readFileSync('car_records.json', 'utf8'));
 
-mongoose.connect('mongodb://mongo_db:27017/', { dbName: 'dealershipsDB' })
+mongoose.connect(mongoURL, { dbName: 'dealershipsDB' })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
